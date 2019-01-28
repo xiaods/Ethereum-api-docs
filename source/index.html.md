@@ -146,6 +146,9 @@ curl -X POST --header "Content-Type: application/json" --data '{"id": 1337,"json
     "result": ["0xc94770007dda54cF92009BFF0dE90c06F603a09f"]
 }
 ```
+
+Returns a list of addresses owned by this client
+
 ### Parameters
 _(none)_
 
