@@ -233,6 +233,15 @@
                   <li>
                     <a href="#net_listening" class="toc-h2 toc-link" data-title="net_listening">net_listening</a>
                   </li>
+                  <li>
+                    <a href="#net_peercount" class="toc-h2 toc-link" data-title="net_peerCount">net_peerCount</a>
+                  </li>
+                  <li>
+                    <a href="#net_version" class="toc-h2 toc-link" data-title="net_version">net_version</a>
+                  </li>
+                  <li>
+                    <a href="#eth_accounts" class="toc-h2 toc-link" data-title="eth_accounts">eth_accounts</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -253,77 +262,93 @@
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
 <p>Nodes created by the current generation of Ethereum clients expose inconsistent and incompatible remote procedure call (RPC) methods because no formal Ethereum RPC specification exists. This proposal standardizes such a specification to provide developers with a predictable Ethereum RPC interface regardless of underlying node implementation.</p>
-<h1 id='ethereum-json-rpc'>Ethereum JSON RPC</h1><h2 id='web3_clientversion'>web3_clientVersion</h2><pre class="highlight shell tab-shell"><code>curl -X POST --data <span class="s1">'{
-    "id": 1337,
-    "jsonrpc": "2.0",
-    "method": "web3_clientVersion",
-    "params": [],
-}'</span> http://localhost:8545
+<h1 id='ethereum-json-rpc'>Ethereum JSON RPC</h1><h2 id='web3_clientversion'>web3_clientVersion</h2><pre class="highlight shell tab-shell"><code>curl -X POST --header <span class="s2">"Content-Type: application/json"</span> --data <span class="s1">'{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'</span> http://localhost:8545
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1337</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mist/v0.9.3/darwin/go1.4.1"</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="s2">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="s2">"id"</span><span class="p">:</span><span class="mi">67</span><span class="p">,</span><span class="s2">"result"</span><span class="p">:</span><span class="s2">"Geth/v1.8.21-stable/linux-amd64/go1.11.4"</span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Returns the version of the current client</p>
-<h2 id='web3_sha3'>web3_sha3</h2><pre class="highlight shell tab-shell"><code>curl -X POST --data <span class="s1">'{
-    "id": 1337,
-    "jsonrpc": "2.0",
-    "method": "web3_sha3",
-    "params": ["0x68656c6c6f20776f726c64"]
-}'</span> http://localhost:8545
+<h2 id='web3_sha3'>web3_sha3</h2><pre class="highlight shell tab-shell"><code>curl -X POST --header <span class="s2">"Content-Type: application/json"</span> --data <span class="s1">'{"jsonrpc":"2.0","method":"web3_sha3","params":["0x68656c6c6f20776f726c64"],"id":64}'</span> http://localhost:8545
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1337</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xc94770007dda54cF92009BFF0dE90c06F603a09f"</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="s2">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="s2">"id"</span><span class="p">:</span><span class="mi">64</span><span class="p">,</span><span class="s2">"result"</span><span class="p">:</span><span class="s2">"0x47173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad"</span><span class="p">}</span><span class="w"> 
 </span></code></pre>
 <p>Hashes data using the Keccak-256 algorithm</p>
 <h3 id='parameters'>Parameters</h3>
-<table><thead>
-<tr>
-<th>#</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>1</td>
-<td>{<a href="#data"><code>Data</code></a>}</td>
-<td>data to hash</td>
-</tr>
-</tbody></table>
+<p>DATA - the data to convert into a SHA3 hash.
+<code>
+params: [
+  &quot;0x68656c6c6f20776f726c64&quot;
+]
+</code></p>
 <h3 id='returns'>Returns</h3>
-<p>{<a href="#data"><code>Data</code></a>} - Keccak-256 hash of the given data</p>
-<h2 id='net_listening'>net_listening</h2><pre class="highlight shell tab-shell"><code>curl -X POST --data <span class="s1">'{
-    "id": 1337,
-    "jsonrpc": "2.0",
-    "method": "net_listening",
-    "params": []
-}'</span> http://localhost:8545
+<p>DATA - The SHA3 result of the given string.</p>
+<h2 id='net_listening'>net_listening</h2><pre class="highlight shell tab-shell"><code>curl -X POST --header <span class="s2">"Content-Type: application/json"</span> --data <span class="s1">'{"id": 1337,"jsonrpc": "2.0","method": "net_listening","params": []}'</span> http://localhost:75
+45
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1337</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="s2">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="s2">"id"</span><span class="p">:</span><span class="mi">1337</span><span class="p">,</span><span class="s2">"result"</span><span class="p">:</span><span class="kc">true</span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Determines if this client is listening for new network connections</p>
 <h3 id='parameters-2'>Parameters</h3>
 <p><em>(none)</em></p>
 <h3 id='returns-2'>Returns</h3>
 <p>{<code>boolean</code>} - <code>true</code> if listening is active or <code>false</code> if listening is not active</p>
+<h2 id='net_peercount'>net_peerCount</h2><pre class="highlight shell tab-shell"><code>curl -X POST --header <span class="s2">"Content-Type: application/json"</span> --data <span class="s1">'{"id": 1337,"jsonrpc": "2.0","method": "net_peerCount","params": []}'</span> http://localhost:7545
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="s2">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="s2">"id"</span><span class="p">:</span><span class="mi">1337</span><span class="p">,</span><span class="s2">"result"</span><span class="p">:</span><span class="s2">"0x19"</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Returns the number of peers currently connected to this client</p>
+<h3 id='parameters-3'>Parameters</h3>
+<p><em>(none)</em></p>
+<h3 id='returns-3'>Returns</h3>
+<p>{<code>Quantity</code>} - number of connected peers</p>
+<h2 id='net_version'>net_version</h2><pre class="highlight shell tab-shell"><code>curl -X POST --header <span class="s2">"Content-Type: application/json"</span> --data <span class="s1">'{"id": 1337, "jsonrpc": "2.0","method": "net_version","params": []}'</span> http://localhost:8545
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="s2">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="s2">"id"</span><span class="p">:</span><span class="mi">1337</span><span class="p">,</span><span class="s2">"result"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Returns the chain ID associated with the current network</p>
+<h3 id='parameters-4'>Parameters</h3>
+<p><em>(none)</em></p>
+<h3 id='returns-4'>Returns</h3>
+<p>{<code>string</code>} - chain ID associated with the current network</p>
+
+<p>Common chain IDs:</p>
+
+<ul>
+<li>&quot;1&quot; - Ethereum mainnet</li>
+<li>&quot;3&quot; - Ropsten testnet</li>
+<li>&quot;4&quot; - Rinkeby testnet</li>
+<li>&quot;42&quot; - Kovan testnet</li>
+</ul>
+
+<p>Note: See EIP-155 for a <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md#list-of-chain-ids">complete list</a> of possible chain IDs.</p>
+<h2 id='eth_accounts'>eth_accounts</h2><pre class="highlight shell tab-shell"><code>curl -X POST --header <span class="s2">"Content-Type: application/json"</span> --data <span class="s1">'{"id": 1337,"jsonrpc": "2.0","method": "eth_accounts","params": []}'</span> http://localhost:8545
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1337</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"0xc94770007dda54cF92009BFF0dE90c06F603a09f"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='parameters-5'>Parameters</h3>
+<p><em>(none)</em></p>
+<h3 id='returns-5'>Returns</h3>
+<p>{<code>Data[]</code>} - array of addresses</p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 If an Ethereum RPC method encounters an error, the error member included on the response object MUST be an object containing a code member and descriptive message member. The following list contains all possible error codes and associated messages:
