@@ -218,4 +218,33 @@ Executes a new message call immediately without submitting a transaction to the 
 ### Returns
 {[`Data`](#data)} - return value of executed contract
 
+## eth_coinbase
+
+```shell
+curl -X POST --header "Content-Type: application/json" --data '{
+    "id": 1337,
+    "jsonrpc": "2.0",
+    "method": "eth_coinbase",
+    "params": []
+}' http://localhost:7545
+```
+> The above command returns JSON structured like this:
+
+```json
+{
+    "id": 1337,
+    "jsonrpc": "2.0",
+    "result": "0xc94770007dda54cF92009BFF0dE90c06F603a09f"
+}
+```
+
+Returns the coinbase address for this client
+
+### Parameters
+
+_(none)_
+
+### Returns
+{[`Data`](#data)} - coinbase address
+
 
