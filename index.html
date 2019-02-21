@@ -248,6 +248,9 @@
                   <li>
                     <a href="#eth_call" class="toc-h2 toc-link" data-title="eth_call">eth_call</a>
                   </li>
+                  <li>
+                    <a href="#eth_coinbase" class="toc-h2 toc-link" data-title="eth_coinbase">eth_coinbase</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -419,6 +422,27 @@ params: [
 </tbody></table>
 <h3 id='returns-7'>Returns</h3>
 <p>{<a href="#data"><code>Data</code></a>} - return value of executed contract</p>
+<h2 id='eth_coinbase'>eth_coinbase</h2><pre class="highlight shell tab-shell"><code>curl -X POST --header <span class="s2">"Content-Type: application/json"</span> --data <span class="s1">'{
+    "id": 1337,
+    "jsonrpc": "2.0",
+    "method": "eth_coinbase",
+    "params": []
+}'</span> http://localhost:7545
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1337</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xc94770007dda54cF92009BFF0dE90c06F603a09f"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Returns the coinbase address for this client</p>
+<h3 id='parameters-8'>Parameters</h3>
+<p><em>(none)</em></p>
+<h3 id='returns-8'>Returns</h3>
+<p>{<a href="#data"><code>Data</code></a>} - coinbase address</p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 If an Ethereum RPC method encounters an error, the error member included on the response object MUST be an object containing a code member and descriptive message member. The following list contains all possible error codes and associated messages:
