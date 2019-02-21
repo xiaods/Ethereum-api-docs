@@ -242,6 +242,12 @@
                   <li>
                     <a href="#eth_accounts" class="toc-h2 toc-link" data-title="eth_accounts">eth_accounts</a>
                   </li>
+                  <li>
+                    <a href="#eth_blocknumber" class="toc-h2 toc-link" data-title="eth_blockNumber">eth_blockNumber</a>
+                  </li>
+                  <li>
+                    <a href="#eth_call" class="toc-h2 toc-link" data-title="eth_call">eth_call</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -351,6 +357,68 @@ params: [
 <p><em>(none)</em></p>
 <h3 id='returns-5'>Returns</h3>
 <p>{<code>Data[]</code>} - array of addresses</p>
+<h2 id='eth_blocknumber'>eth_blockNumber</h2><pre class="highlight shell tab-shell"><code>curl -X POST --header <span class="s2">"Content-Type: application/json"</span> --data <span class="s1">'{
+    "id": 1337,
+    "jsonrpc": "2.0",
+    "method": "eth_blockNumber",
+    "params": []
+}'</span> http://localhost:7545
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="s2">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="s2">"id"</span><span class="p">:</span><span class="mi">1337</span><span class="p">,</span><span class="s2">"result"</span><span class="p">:</span><span class="s2">"0x6e9c4e"</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Returns the number of the most recent block seen by this client</p>
+<h3 id='parameters-6'>Parameters</h3>
+<p><em>(none)</em></p>
+<h3 id='returns-6'>Returns</h3>
+<p>{<code>Quantity</code>} - number of the latest block</p>
+<h2 id='eth_call'>eth_call</h2><pre class="highlight shell tab-shell"><code>curl -X POST --header <span class="s2">"Content-Type: application/json"</span> --data <span class="s1">'{
+    "id": 1337,
+    "jsonrpc": "2.0",
+    "method": "eth_call",
+    "params": [{
+        "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675",
+        "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
+        "gas": "0x76c0",
+        "gasPrice": "0x9184e72a000",
+        "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
+        "value": "0x9184e72a"
+    }]
+}'</span> http://localhost:7545
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1337</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Executes a new message call immediately without submitting a transaction to the network</p>
+<h3 id='parameters-7'>Parameters</h3>
+<table><thead>
+<tr>
+<th>#</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1</td>
+<td>{<code>object</code>}</td>
+<td>@property {<a href="#data"><code>Data</code></a>} <code>[from]</code> - transaction sender<br/>@property {<a href="#data"><code>Data</code></a>} <code>to</code> - transaction recipient or <code>null</code> if deploying a contract<br/>@property {<a href="#quantity"><code>Quantity</code></a>} <code>[gas]</code> - gas provided for transaction execution<br/>@property {<a href="#quantity"><code>Quantity</code></a>} <code>[gasPrice]</code> - price in wei of each gas used<br/>@property {<a href="#quantity"><code>Quantity</code></a>} <code>[value]</code> - value in wei sent with this transaction<br/>@property {<a href="#data"><code>Data</code></a>} <code>[data]</code> - contract code or a hashed method call with encoded args</td>
+</tr>
+<tr>
+<td>2</td>
+<td>{<a href="#quantity"><code>Quantity</code></a>\</td>
+<td><code>string</code>}</td>
+</tr>
+</tbody></table>
+<h3 id='returns-7'>Returns</h3>
+<p>{<a href="#data"><code>Data</code></a>} - return value of executed contract</p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 If an Ethereum RPC method encounters an error, the error member included on the response object MUST be an object containing a code member and descriptive message member. The following list contains all possible error codes and associated messages:
