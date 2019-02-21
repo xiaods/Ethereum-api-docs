@@ -155,6 +155,67 @@ _(none)_
 ### Returns
 {`Data[]`} - array of addresses
 
+## eth_blockNumber
 
+```shell
+curl -X POST --header "Content-Type: application/json" --data '{
+    "id": 1337,
+    "jsonrpc": "2.0",
+    "method": "eth_blockNumber",
+    "params": []
+}' http://localhost:7545
+```
+> The above command returns JSON structured like this:
+
+```json
+{"jsonrpc":"2.0","id":1337,"result":"0x6e9c4e"}
+```
+Returns the number of the most recent block seen by this client
+
+### Parameters
+_(none)_
+
+### Returns
+
+{`Quantity`} - number of the latest block
+
+## eth_call
+
+```shell
+curl -X POST --header "Content-Type: application/json" --data '{
+    "id": 1337,
+    "jsonrpc": "2.0",
+    "method": "eth_call",
+    "params": [{
+        "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675",
+        "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
+        "gas": "0x76c0",
+        "gasPrice": "0x9184e72a000",
+        "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
+        "value": "0x9184e72a"
+    }]
+}' http://localhost:7545
+```
+> The above command returns JSON structured like this:
+
+```json
+{
+    "id": 1337,
+    "jsonrpc": "2.0",
+    "result": "0x"
+}
+```
+
+Executes a new message call immediately without submitting a transaction to the network
+
+### Parameters
+|#|Type|Description|
+|-|-|-|
+|1|{`object`}|@property {[`Data`](#data)} `[from]` - transaction sender<br/>@property {[`Data`](#data)} `to` - transaction recipient or `null` if deploying a contract<br/>@property {[`Quantity`](#quantity)} `[gas]` - gas provided for transaction execution<br/>@property {[`Quantity`](#quantity)} `[gasPrice]` - price in wei of each gas used<br/>@property {[`Quantity`](#quantity)} `[value]` - value in wei sent with this transaction<br/>@property {[`Data`](#data)} `[data]` - contract code or a hashed method call with encoded args|
+|2|{[`Quantity`](#quantity)\|`string`}|block number, or one of `"latest"`, `"earliest"` or `"pending"`|
+
+
+### Returns
+{[`Data`](#data)} - return value of executed contract
 
 
